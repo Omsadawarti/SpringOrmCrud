@@ -17,19 +17,17 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.SpringOrm.Entities.Employee;
 import com.SpringOrm.Entities.User;
+import com.SpringOrm.Views.EmployeeFrame;
+import com.SpringOrm.Views.LoginFrame;
 import com.SpringOrmCrud.Dao.UserDaoImpl;
 
 @Configuration
 @ComponentScan(basePackages = {"com.SpringOrmCrud.Entities , com.SpringOrmCrud.Dao"})
 @EnableTransactionManagement
-@EnableAspectJAutoProxy
+
 public class JavaConfig {
 	
-	@Bean(name = "userDaoImpl")
-	public UserDaoImpl getUserDaoImpl() {
-		UserDaoImpl userDaoImpl = new UserDaoImpl();
-		return userDaoImpl;
-	}
+	
 	
 	@Bean(name = "dataSource")
 	public DriverManagerDataSource getDataSource() {
@@ -49,9 +47,10 @@ public class JavaConfig {
 		
 		Properties  properties = new Properties();
 		properties.setProperty("hibernate.show_sql", "true");
-		properties.setProperty("hibernate.hbm2dll.auto", "update");
+		properties.setProperty("hibernate.hbm2ddl.auto", "update");
 		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL55Dialect");
-		
+		//hibernate.hbm2ddl.auto=update
+
 		sessionFactoryBean.setDataSource(getDataSource());
 		sessionFactoryBean.setHibernateProperties(properties);
 		sessionFactoryBean.setAnnotatedClasses(User.class , Employee.class);
@@ -74,6 +73,20 @@ public class JavaConfig {
 
 		return hibernateTransactionManager;
 	}
+        
+        
+        @Bean(name = "loginFrame")
+        public LoginFrame getLoginFrame(){
+        
+        LoginFrame loginframe = new LoginFrame();
+        return loginframe;
+        }
 	
+        @Bean(name  = "empFrame")
+        public EmployeeFrame getEmployeeFrame(){
+            EmployeeFrame empFrame = new EmployeeFrame();
+            
+            return empFrame;
+        }
 
 }

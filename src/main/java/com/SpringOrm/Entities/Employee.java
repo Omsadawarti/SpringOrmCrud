@@ -1,16 +1,23 @@
 package com.SpringOrm.Entities;
 
+import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("employee")
 @Entity
+@Table(name = "employee")
 public class Employee {
 	
 	@Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private int employeeId;
 	
@@ -24,6 +31,9 @@ public class Employee {
 	private String employeeAddress;
 	
 	private int status;
+	
+	@Version
+	private int version;
 	
 	
 
